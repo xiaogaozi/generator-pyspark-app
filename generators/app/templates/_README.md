@@ -14,14 +14,14 @@ $ export SPARK_HOME=/usr/local/Cellar/apache-spark/1.3.1_1/libexec
 ```
 
 
-## Run Spark application in local mode
+## Running Spark application in local mode
 
 ```
 $ bin/run-local
 ```
 
 
-## Run test
+## Running test
 
 ```
 $ bin/test
