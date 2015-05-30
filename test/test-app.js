@@ -9,16 +9,22 @@ describe('pyspark-app:app', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../generators/app'))
       .withOptions({ skipInstall: true })
-      .withPrompts({ someOption: true })
+      .withPrompts({ appName: 'Word Count' })
       .on('end', done);
   });
 
   it('creates files', function () {
     assert.file([
-      'bower.json',
-      'package.json',
-      '.editorconfig',
-      '.jshintrc'
+      '.gitignore',
+      'README.md',
+      'bin/run-local',
+      'bin/test',
+      'samples/.gitkeep',
+      'setup.py',
+      'tests/__init__.py',
+      'tests/test_app.py',
+      'wordcount/__init__.py',
+      'wordcount/main.py'
     ]);
   });
 });
