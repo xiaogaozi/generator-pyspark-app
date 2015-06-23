@@ -103,5 +103,9 @@ module.exports = yeoman.generators.Base.extend({
         }
       );
     }
+  },
+
+  end: function () {
+    this.log('Read useful information in README.md, then edit ' + this.pkgName + '/main.py to start your Spark journey!');
   }
 });
