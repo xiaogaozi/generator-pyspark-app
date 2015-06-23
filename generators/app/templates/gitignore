@@ -53,5 +53,6 @@ docs/_build/
 # PyBuilder
 target/
 
+.azkaban/
 .packages/
 .pipcache/

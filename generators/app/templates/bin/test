@@ -28,4 +28,4 @@ mkdir -p .pipcache
 pip install . --download .pipcache -q
 pip install . --no-index --find-links .pipcache --target .packages -q
 
-PYTHONPATH=$(pwd)/.packages:$SPARK_HOME/python:$(echo $SPARK_HOME/python/lib/py4j-*-src.zip):$PYTHONPATH nosetests -v
+PYTHONPATH=$(pwd)/.packages:$SPARK_HOME/python:$(echo $SPARK_HOME/python/lib/py4j-*-src.zip):$PYTHONPATH nosetests -v "$@"

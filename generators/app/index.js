@@ -48,6 +48,14 @@ module.exports = yeoman.generators.Base.extend({
           appName: this.appName
         }
       );
+      this.fs.copyTpl(
+        this.templatePath('_spark.json'),
+        this.destinationPath('spark.json'),
+        {
+          pkgName: this.pkgName,
+          className: this.className
+        }
+      );
     },
 
     gitfiles: function () {
@@ -70,10 +78,9 @@ module.exports = yeoman.generators.Base.extend({
           appName: this.appName
         }
       );
-      this.fs.copyTpl(
-        this.templatePath('bin/_run-local'),
-        this.destinationPath('bin/run-local'),
-        { pkgName: this.pkgName }
+      this.fs.copy(
+        this.templatePath('bin/run'),
+        this.destinationPath('bin/run')
       );
       this.fs.copy(
         this.templatePath('bin/test'),

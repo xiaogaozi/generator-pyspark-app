@@ -1,0 +1,12 @@
+{
+  "appName": "<%= className %>",
+  "appEntryPoint": "<%= pkgName %>/main.py",
+  "hdfsUsername": "",
+  "failureEmails": "",
+  "successEmails": "",
+  "schedule": {
+    "startDate": "MM/DD/YYYY",
+    "startTime": "hh,mm,(AM or PM),(PDT or UTC)",
+    "period": "1d"
+  }
+}

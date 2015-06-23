@@ -17,10 +17,11 @@ describe('pyspark-app:app', function () {
     assert.file([
       '.gitignore',
       'README.md',
-      'bin/run-local',
+      'bin/run',
       'bin/test',
       'samples/.gitkeep',
       'setup.py',
+      'spark.json',
       'tests/__init__.py',
       'tests/test_app.py',
       'wordcount/__init__.py',
