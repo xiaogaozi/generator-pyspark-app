@@ -38,23 +38,17 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copyTpl(
         this.templatePath('_README.md'),
         this.destinationPath('README.md'),
-        { appName: this.appName }
+        this
       );
       this.fs.copyTpl(
         this.templatePath('_setup.py'),
         this.destinationPath('setup.py'),
-        {
-          pkgName: this.pkgName,
-          appName: this.appName
-        }
+        this
       );
       this.fs.copyTpl(
         this.templatePath('_spark.json'),
         this.destinationPath('spark.json'),
-        {
-          pkgName: this.pkgName,
-          className: this.className
-        }
+        this
       );
     },
 
@@ -73,10 +67,7 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copyTpl(
         this.templatePath('_/_main.py'),
         this.destinationPath(this.pkgName, 'main.py'),
-        {
-          className: this.className,
-          appName: this.appName
-        }
+        this
       );
       this.fs.copy(
         this.templatePath('bin/run'),
@@ -97,10 +88,7 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copyTpl(
         this.templatePath('tests/_test_app.py'),
         this.destinationPath('tests/test_app.py'),
-        {
-          pkgName: this.pkgName,
-          className: this.className
-        }
+        this
       );
     }
   },

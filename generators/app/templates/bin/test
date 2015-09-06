@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-if [[ ! $(which pip) ]]; then
-  echo "Error: pip command not found, you can install like this:"
+PIP_COMMAND="pip"
+
+if [[ ! $(which $PIP_COMMAND) ]]; then
+  echo "Error: $PIP_COMMAND command not found, you can install like this:"
   echo "  $ easy_install pip"
   exit 1
 fi
@@ -20,12 +22,12 @@ fi
 
 if [[ -z "$SPARK_HOME" ]]; then
   echo "Error: SPARK_HOME is not set, you can set like this:"
-  echo "  $ export SPARK_HOME=/usr/local/Cellar/apache-spark/1.3.1_1/libexec"
+  echo "  $ export SPARK_HOME=/usr/local/Cellar/apache-spark/1.4.1/libexec"
   exit 1
 fi
 
 mkdir -p .pipcache
-pip install . --download .pipcache -q
-pip install . --no-index --find-links .pipcache --target .packages -q
+$PIP_COMMAND install . --download .pipcache -q
+$PIP_COMMAND install . --no-index --find-links .pipcache --target .packages -q
 
 PYTHONPATH=$(pwd)/.packages:$SPARK_HOME/python:$(echo $SPARK_HOME/python/lib/py4j-*-src.zip):$PYTHONPATH nosetests -v "$@"

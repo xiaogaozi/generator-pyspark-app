@@ -12,5 +12,4 @@ class <%= className %>AppTest(unittest.TestCase):
         os.putenv('SPARK_MASTER', 'local')
 
     def test_run(self):
-        output = <%= className %>App.run()
-        self.assertIsInstance(output, list)
+        <%= className %>App.run()

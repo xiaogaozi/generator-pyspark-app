@@ -1,6 +1,7 @@
 {
   "appName": "<%= className %>",
   "appEntryPoint": "<%= pkgName %>/main.py",
+  "extraSparkSubmitOptions": "",
   "hdfsUsername": "",
   "failureEmails": "",
   "successEmails": "",

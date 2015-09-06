@@ -36,7 +36,7 @@ class <%= className %>App(object):
                 # input_file = sc.textFile('hdfs:///user/xxx/data.csv')
                 pass
 
-            # Operate your data below
+            # Write your code here
             pass
 
 # Do NOT move this line.

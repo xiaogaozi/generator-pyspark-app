@@ -49,7 +49,7 @@ parse_args() {
       MASTER="local"
       ;;
     yarn|YARN)
-      MASTER="yarn-client"
+      MASTER="yarn-cluster"
       if [[ "$2" == "--schedule" ]]; then
         ENABLE_SCHEDULE="true"
       else
@@ -117,11 +117,12 @@ from azkaban import Job, Project
 project = Project('${APP_NAME}', root=os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 project.properties = {
     'failure.emails': '${FAILURE_EMAILS}',
-    'success.emails': '${SUCCESS_EMAILS}'
+    'success.emails': '${SUCCESS_EMAILS}',
+    'env.HDFS_USERNAME': '${HDFS_USERNAME}'
 }
 project.add_file('${PACKAGES_ZIP_FILE}', 'packages.zip')
 project.add_file('${APP_ENTRY_POINT}', 'main.py')
-project.add_job('${AZKABAN_JOB_NAME}', Job({'type': 'command', 'command': '${SPARK_COMMAND} --verbose --proxy-user ${HDFS_USERNAME} --master ${MASTER} --py-files packages.zip main.py${ARGS}'}))
+project.add_job('${AZKABAN_JOB_NAME}', Job({'type': 'command', 'command': '${SPARK_COMMAND} --verbose --proxy-user ${HDFS_USERNAME} --master ${MASTER} ${EXTRA_SPARK_SUBMIT_OPTIONS} --py-files packages.zip main.py${ARGS}'}))
 EOF
 }
 
@@ -131,12 +132,14 @@ generate_python_packages
 
 APP_NAME=$(get_config "appName"); die
 APP_ENTRY_POINT=$(get_config "appEntryPoint"); die
+EXTRA_SPARK_SUBMIT_OPTIONS=$(get_config "extraSparkSubmitOptions" "''")
 
 case "$MASTER" in
   local)
-    $SPARK_COMMAND --master "$MASTER" --py-files "$PACKAGES_ZIP_FILE" "$APP_ENTRY_POINT" "$@"
+    $SPARK_COMMAND --master "$MASTER" ${EXTRA_SPARK_SUBMIT_OPTIONS} --py-files "$PACKAGES_ZIP_FILE" "$APP_ENTRY_POINT" "$@"
     ;;
-  yarn-client)
+
+  yarn-cluster)
     AZKABAN_JOB_NAME=$APP_NAME
     HDFS_USERNAME=$(get_config "hdfsUsername"); die
     FAILURE_EMAILS=$(get_config "failureEmails" "''")

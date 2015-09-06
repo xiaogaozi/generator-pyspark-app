@@ -10,7 +10,7 @@ You need install Apache Spark, [pip](https://pip.pypa.io) and [nose](http://read
 Then set `SPARK_HOME` environment variable, e.g.
 
 ```bash
-$ export SPARK_HOME=/usr/local/Cellar/apache-spark/1.3.1_1/libexec
+$ export SPARK_HOME=/usr/local/Cellar/apache-spark/1.4.1/libexec
 ```
 
 
@@ -21,7 +21,7 @@ $ bin/run local
 ```
 
 
-## Running Spark application in YARN client mode
+## Running Spark application in YARN cluster mode
 
 In production environment, we use [Azkaban](http://azkaban.github.io) as
 Spark workflow manager. You should install [Azkaban CLI tool](https://github.com/mtth/azkaban) first.
@@ -30,12 +30,12 @@ Spark workflow manager. You should install [Azkaban CLI tool](https://github.com
 $ pip install azkaban
 ```
 
-Then edit `~/.azkabanrc` file.
+Then edit `~/.azkabanrc` file, replace `USERNAME` and `PASSWORD` with yours.
 
 ```bash
 $ cat ~/.azkabanrc
 [alias]
-azkaban = https://username:password@azkaban.example.com:443
+azkaban = https://USERNAME:PASSWORD@azkaban.example.com:443
 
 [azkaban]
 default.alias = azkaban
@@ -96,6 +96,7 @@ application, here is the list of all supported configurations.
 | ---- | ----------- |
 | `appName` | Application name, no space allowed |
 | `appEntryPoint` | Python file as the main program, a.k.a. in Spark world it be called driver program |
+| `extraSparkSubmitOptions` | Extra `spark-submit` options |
 | `hdfsUsername` (YARN only) | Your username on HDFS, it is used for HDFS authentication |
 | `failureEmails` (YARN only) | Comma delimited list of emails to notify during a failure |
 | `successEmails` (YARN only) | Comma delimited list of emails to notify during a success |

@@ -1,6 +1,12 @@
 # Changelog
 
 
+## Version 0.0.4
+
+- Change default YARN master from `yarn-client` to `yarn-cluster`
+- `spark.json`: add `extraSparkSubmitOptions` configuration
+
+
 ## Version 0.0.3
 
 - Show message when installation finished
