@@ -89,19 +89,29 @@ get_config() {
   fi
 }
 
-# Generate packages.zip
+# Generate packages.zip in .packages directory
 generate_python_packages() {
   mkdir -p .pipcache
   $PIP_COMMAND install . --download .pipcache -q
   if [[ $? -ne 0 ]]; then
-    echo "Please run this command in directory which contains setup.py"
+    echo "${ERROR_LOG_PREFIX}please run this command in directory which contains setup.py"
     rm -rf .pipcache
     exit 1
   fi
+
   rm -rf .packages/*  # ensure our own package is latest
   $PIP_COMMAND install . --no-index --find-links .pipcache --target .packages -q
+  if [[ $? -ne 0 ]]; then
+    echo "${ERROR_LOG_PREFIX}$PIP_COMMAND install failed"
+    exit 1
+  fi
+
   cd ./.packages
   zip -r packages.zip -q .
+  if [[ $? -ne 0 ]]; then
+    echo "${ERROR_LOG_PREFIX}create packages.zip failed"
+    exit 1
+  fi
   cd ..
 }
 
